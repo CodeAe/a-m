@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+      *, 
+*::before, 
+*::after { 
+    padding: 0; 
+    margin: 0; 
+    box-sizing: border-box; 
+} 
+
+body { 
+    background-color: #FE9DAC; 
+    height: 100vh; 
+} 
+
+.container { 
+    width: 400px; 
+    height: 400px; 
+    background-color: #FEB8C3; 
+    position: absolute; 
+    transform: translate(-50%, -50%); 
+    top: 50%; left: 50%; 
+    border-radius: 8px; 
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6); 
+    overflow: hidden; 
+}
+
+.cake {
+  width: 100%;
+  position: absolute;
+  bottom: 60px;
+  color: #C7814F;
+}
+
+.bottom-layer,
+.top-layer,
+.middle-layer {
+  height: 80px;
+  width: 240px;
+  position: relative;
+  margin: auto;
+  color: #C7814F;
+  background-repeat: repeat;
+  background-size: 100% 100%, 60px 100px;
+  background-position: 28px 0;
+  background-image: linear-gradient(
+      transparent 50px,
+      #ff7bb0 50px,
+      #ff7bb0 60px,
+      #C7814F 60px
+    ),
+    radial-gradient(circle at 30px 5px, #a24064 30px, #2b2b2b 31px);
+}
+
+.middle-layer {
+  transform: scale(0.85);
+  top: 72px;
+  animation: rise-1 2s forwards;
+  color: #C7814F;
+}
+
+@keyframes rise-1 {
+  100% {
+    top: 7px;
+  }
+}
+
+.top-layer {
+  transform: scale(0.7);
+  top: 144px;
+  animation: rise-2 2s 2s forwards;
+}
+
+@keyframes rise-2 {
+  100% {
+    top: 26px;
+  }
+}
+
+.candle {
+  background: repeating-linear-gradient(
+    45deg,
+    #fd3018 0,
+    #fd3018 5px,
+    #ffa89e 5px,
+    #ffa89e 10px
+  );
+  height: 45px;
+  width: 15px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: rise-3 1s 4s forwards;
+}
+
+@keyframes rise-3 {
+  100% {
+    bottom: 202px;
+  }
+}
+
+.candle:after {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-color: #ffee54;
+  border-radius: 0 50% 50% 50%;
+  transform: scale(0) rotate(45deg);
+  bottom: 50px;
+  left: -0.5px;
+  animation: flame 1.5s 5s forwards;
+}
+
+@keyframes flame {
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+/* Hearts animation */
+.hearts {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4f4f;
+  transform: rotate(45deg) scale(0);
+  animation: pop-heart 4s 6.5s forwards;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4f4f;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes pop-heart {
+  0% {
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    bottom: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) scale(1);
+    bottom: 200px;
+    opacity: 0;
+  }
+}
+
+.heart:nth-child(2) {
+  left: -30px;
+  animation-delay: 6.7s;
+}
+
+.heart:nth-child(3) {
+  left: 30px;
+  animation-delay: 6.9s;
+}
+
+.floating-hearts {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-hearts .heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4f4f;
+  transform: rotate(45deg);
+  animation: float-heart 6s ease-in infinite;
+  opacity: 0;
+}
+
+.floating-hearts .heart::before,
+.floating-hearts .heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4f4f;
+  border-radius: 50%;
+}
+
+.floating-hearts .heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.floating-hearts .heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes float-heart {
+  0% {
+    transform: translateY(0) rotate(45deg) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Random animation delays/positions */
+.floating-hearts .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+.floating-hearts .heart:nth-child(2) { left: 20%; animation-delay: 1s; }
+.floating-hearts .heart:nth-child(3) { left: 30%; animation-delay: 2s; }
+.floating-hearts .heart:nth-child(4) { left: 40%; animation-delay: 3s; }
+.floating-hearts .heart:nth-child(5) { left: 50%; animation-delay: 4s; }
+.floating-hearts .heart:nth-child(6) { left: 60%; animation-delay: 2.5s; }
+.floating-hearts .heart:nth-child(7) { left: 70%; animation-delay: 1.5s; }
+.floating-hearts .heart:nth-child(8) { left: 80%; animation-delay: 3.5s; }
+.floating-hearts .heart:nth-child(9) { left: 90%; animation-delay: 0.8s; }
+.floating-hearts .heart:nth-child(10) { left: 95%; animation-delay: 2.2s; }
+
+
+/* Birthday Message Popup */
+.birthday-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  background: rgba(44, 44, 44, 0.95);
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  opacity: 0;
+  animation: show-message 1.5s 6s forwards;
+  color: #ffee54;
+  max-width: 90%;
+}
+
+.birthday-message h1 {
+  font-size: 25px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #FE9DAC;
+}
+
+.birthday-message p {
+  font-size: 16px;
+  color: #FE9DAC;
+  margin: 0;
+}
+
+@keyframes show-message {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="cake">
+      <div class="candle"></div>
+      <div class="top-layer"></div>
+      <div class="middle-layer"></div>
+      <div class="bottom-layer"></div>
+    </div>
+  </div>
+
+  <!-- Floating hearts background -->
+  <div class="floating-hearts">
+    <!-- We'll generate hearts with CSS animation -->
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+    <span class="heart"></span>
+  </div>
+
+  <!-- Birthday message -->
+  <div class="birthday-message">
+      <h1>Happy birthday, Mary ko!<br></h1>
+      <p>I wish you all the best in this life po. I hope this new chapter of yours will be filled with endless blessings, love, and happiness. Mahal, you are the most amazing person I know, and you deserve all the good things in this world. May every dream you’ve been working for come true. I always pray that your heart will always be filled with peace and joy. Keep being the amazing person you are, mahal. I am so glad that you are here po. You are the best, mahal ko. You are the best thing that ever happened to me. I can't wish for more as I have you here with me now. Enjoy your every day, mahal ko. I am looking forward to celebrating your next birthday with you, together! Happiest birthday, mahal! I love you so much!</p>
+    </div> 
+</body>
+
+</html>
